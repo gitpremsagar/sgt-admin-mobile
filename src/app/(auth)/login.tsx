@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Image } from 'expo-image';
 import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, TextInput, View } from 'react-native';
@@ -6,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { z } from 'zod';
 
 import { ThemedText } from '@/components/themed-text';
-import { Button, Card, Icon, Input, Screen } from '@/components/ui';
+import { Button, Card, Input, Screen } from '@/components/ui';
 import { Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { getErrorMessage } from '@/lib/api/errors';
@@ -46,9 +47,7 @@ export default function LoginScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       <Screen contentStyle={styles.content}>
         <View style={styles.brand}>
-          <View style={[styles.logo, { backgroundColor: theme.primary }]}>
-            <Icon name="warehouse" size={34} color={theme.primaryText} />
-          </View>
+          <Image source={require('@/assets/images/logo.png')} style={styles.logo} contentFit="contain" accessibilityLabel="Sri Gopal Traders logo" />
           <ThemedText type="title">SGT Admin</ThemedText>
           <ThemedText type="small" themeColor="textSecondary">
             Sri Gopal Traders · Admin console
@@ -129,12 +128,6 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   content: { flexGrow: 1, justifyContent: 'center', maxWidth: 480, width: '100%', alignSelf: 'center' },
   brand: { alignItems: 'center', gap: Spacing.two, marginBottom: Spacing.three },
-  logo: {
-    width: 68,
-    height: 68,
-    borderRadius: Radius.lg,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  logo: { width: 104, height: 104 },
   error: { padding: Spacing.two, borderRadius: Radius.sm },
 });

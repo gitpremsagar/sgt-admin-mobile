@@ -1,4 +1,6 @@
+import * as Application from 'expo-application';
 import { router, type Href } from 'expo-router';
+import * as Updates from 'expo-updates';
 import * as WebBrowser from 'expo-web-browser';
 import { View } from 'react-native';
 
@@ -113,6 +115,11 @@ export default function MoreScreen() {
             onPress={() => WebBrowser.openBrowserAsync(`${WEB_URL}/admin`)}
           />
           <ListRow
+            title="Privacy policy"
+            icon="privacy_tip"
+            onPress={() => WebBrowser.openBrowserAsync(`${WEB_URL}/privacy`)}
+          />
+          <ListRow
             title="Log out"
             icon="logout"
             danger
@@ -125,6 +132,17 @@ export default function MoreScreen() {
           />
         </View>
       </Section>
+
+      <ThemedText type="caption" themeColor="textSecondary" style={{ textAlign: 'center' }}>
+        {versionLabel()}
+      </ThemedText>
     </Screen>
   );
+}
+
+function versionLabel() {
+  const parts = [`SGT Admin v${Application.nativeApplicationVersion ?? '—'} (${Application.nativeBuildVersion ?? '—'})`];
+  if (Updates.updateId && !Updates.isEmbeddedLaunch) parts.push(`update ${Updates.updateId.slice(0, 8)}`);
+  if (Updates.channel) parts.push(Updates.channel);
+  return parts.join(' · ');
 }

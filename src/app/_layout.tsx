@@ -1,9 +1,10 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { Image } from 'expo-image';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider, type ErrorBoundaryProps } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -14,6 +15,28 @@ import { queryClient } from '@/lib/query-client';
 import { useAuthStore } from '@/stores/auth';
 
 SplashScreen.preventAutoHideAsync();
+
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  const palette = Colors[useColorScheme() === 'dark' ? 'dark' : 'light'];
+  useEffect(() => {
+    SplashScreen.hideAsync();
+  }, []);
+  return (
+    <View style={[styles.crash, { backgroundColor: palette.background }]}>
+      <Image source={require('@/assets/images/logo.png')} style={styles.crashLogo} contentFit="contain" />
+      <Text style={[styles.crashTitle, { color: palette.text }]}>Something went wrong</Text>
+      <Text style={[styles.crashMessage, { color: palette.textSecondary }]} numberOfLines={6}>
+        {error.message}
+      </Text>
+      <Pressable
+        accessibilityRole="button"
+        onPress={retry}
+        style={({ pressed }) => [styles.crashButton, { backgroundColor: palette.primary, opacity: pressed ? 0.85 : 1 }]}>
+        <Text style={[styles.crashButtonText, { color: palette.primaryText }]}>Try again</Text>
+      </Pressable>
+    </View>
+  );
+}
 
 export default function RootLayout() {
   const scheme = useColorScheme();
@@ -68,3 +91,12 @@ export default function RootLayout() {
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  crash: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32, gap: 12 },
+  crashLogo: { width: 96, height: 96, marginBottom: 8 },
+  crashTitle: { fontSize: 20, fontWeight: '700' },
+  crashMessage: { fontSize: 14, textAlign: 'center' },
+  crashButton: { marginTop: 12, paddingHorizontal: 28, paddingVertical: 12, borderRadius: 12 },
+  crashButtonText: { fontSize: 16, fontWeight: '600' },
+});

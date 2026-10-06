@@ -2,23 +2,39 @@
   "expo": {
     "name": "SGT Admin",
     "slug": "sgt-android",
+    "description": "Admin console for Sri Gopal Traders: orders, stock, purchases, dispatch, attendance and reports.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "sgtandroid",
+    "scheme": "sgtadmin",
     "userInterfaceStyle": "automatic",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/dbfcbbd2-932b-4feb-bae8-964b72653bfc",
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
+    },
     "ios": {
-      "icon": "./assets/expo.icon",
+      "icon": "./assets/images/icon.png",
       "bundleIdentifier": "com.srigopaltraders.admin"
     },
     "android": {
       "package": "com.srigopaltraders.admin",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#FFFFFF",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
+      "allowBackup": false,
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
       "predictiveBackGestureEnabled": false,
       "softwareKeyboardLayoutMode": "resize"
     },
@@ -31,9 +47,13 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#1E3A8A",
+          "backgroundColor": "#FFFFFF",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 200,
+          "dark": {
+            "backgroundColor": "#0B1220",
+            "image": "./assets/images/splash-icon.png"
+          }
         }
       ],
       "expo-secure-store",
@@ -42,6 +62,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "dbfcbbd2-932b-4feb-bae8-964b72653bfc"
+      }
     }
   }
 }
