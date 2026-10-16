@@ -239,7 +239,7 @@ function OrderDetail({ order, refetch, refreshing }: { order: Order; refetch: ()
             />
             <ListRow
               title="Modify order"
-              subtitle={verified ? 'Change quantities (within 4 days of verification)' : 'Edit draft items and details'}
+              subtitle={verified ? 'Change quantities (within 10 days of verification)' : 'Edit draft items and details'}
               icon="edit"
               onPress={() => router.push({ pathname: '/orders/[id]/edit', params: { id: order.id } })}
             />

@@ -174,7 +174,7 @@ export function OrderForm({ order }: Props) {
       {verified ? (
         <Card style={{ borderWidth: 0 }}>
           <ThemedText type="small" themeColor="textSecondary">
-            This order is verified. Only quantity changes and metadata can be edited, and only within 4 days of
+            This order is verified. Only quantity changes and metadata can be edited, and only within 10 days of
             verification. Removing a line returns its stock.
           </ThemedText>
         </Card>
